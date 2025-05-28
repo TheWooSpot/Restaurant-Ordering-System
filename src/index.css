@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-50 text-gray-900;
+}
+
+.menu-item-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.menu-item-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms, transform 300ms;
+}
+.menu-item-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+.menu-item-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.order-item {
+  @apply bg-white rounded-lg shadow-md p-4 mb-4 border-l-4 transition-all duration-300;
+}
+
+.order-new {
+  @apply border-yellow-500;
+  animation: pulse 2s infinite;
+}
+
+.order-preparing {
+  @apply border-blue-500;
+}
+
+.order-ready {
+  @apply border-green-500;
+}
+
+.order-delivered {
+  @apply border-gray-300;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.food-item {
+  @apply relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl;
+}
+
+.food-item:hover img {
+  @apply transform scale-105;
+}
+
+.food-item img {
+  @apply transition-transform duration-500;
+}
+
+.btn-primary {
+  @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200;
+}
+
+.btn-secondary {
+  @apply bg-secondary-600 hover:bg-secondary-700 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200;
+}
+
+.btn-outline {
+  @apply border border-gray-300 hover:bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-md transition-colors duration-200;
+}
+
+.input-field {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-md overflow-hidden;
+}
+
+.section-title {
+  @apply text-2xl font-display font-bold text-gray-800 mb-6;
+}
