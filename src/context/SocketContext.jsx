@@ -10,7 +10,11 @@ export const SocketProvider = ({ children }) => {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const socketInstance = io();
+    // Connect to the server with explicit URL to avoid connection issues
+    const socketInstance = io(window.location.origin, {
+      path: '/socket.io',
+      transports: ['websocket', 'polling']
+    });
     
     socketInstance.on('connect', () => {
       console.log('Connected to server');
@@ -20,6 +24,10 @@ export const SocketProvider = ({ children }) => {
     socketInstance.on('disconnect', () => {
       console.log('Disconnected from server');
       setConnected(false);
+    });
+
+    socketInstance.on('connect_error', (error) => {
+      console.log('Connection error:', error);
     });
 
     setSocket(socketInstance);

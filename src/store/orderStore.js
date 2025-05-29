@@ -61,6 +61,11 @@ export const useOrderStore = create((set, get) => ({
     
     if (socket) {
       socket.emit('place_order', order);
+      // Add order locally in case socket fails
+      set(state => ({ orders: [order, ...state.orders] }));
+    } else {
+      // If socket is not available, still add the order locally
+      set(state => ({ orders: [order, ...state.orders] }));
     }
     
     set({ cart: [], tableNumber: '', customerName: '' });
@@ -68,7 +73,7 @@ export const useOrderStore = create((set, get) => ({
   },
 
   addOrder: (order) => set(state => ({ 
-    orders: [order, ...state.orders] 
+    orders: [order, ...state.orders.filter(o => o.id !== order.id)] 
   })),
 
   updateOrder: (updatedOrder) => set(state => ({

@@ -2,10 +2,20 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { v4 as uuidv4 } from 'uuid';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 
 // In-memory data storage
 const menuItems = [
@@ -132,6 +142,9 @@ const menuItems = [
 ];
 
 const orders = [];
+
+// Middleware
+app.use(express.json());
 
 // API routes
 app.get('/api/menu', (req, res) => {
